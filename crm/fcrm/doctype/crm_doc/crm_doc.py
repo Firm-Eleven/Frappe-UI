@@ -10,7 +10,7 @@ class CrmDoc(Document):
 
     def validate(self):
     	if self.id:
-        	existing = frappe.db.exists("Crm Doc", {"id": self.id})
+        	existing = frappe.db.exists("CRM Doc", {"id": self.id})
         
         	if existing and existing != self.name:
             		frappe.throw(f"ID '{self.id}' already exists")
@@ -83,12 +83,12 @@ def create_crm_doc():
 
 @frappe.whitelist()
 def get_crm_doc(doc_id):
-    return frappe.get_doc("Crm Doc", doc_id).as_dict()
+    return frappe.get_doc("CRM Doc", doc_id).as_dict()
 
 
 @frappe.whitelist()
 def update_crm_doc(doc_id, name1=None):
-    doc = frappe.get_doc("Crm Doc", doc_id)
+    doc = frappe.get_doc("CRM Doc", doc_id)
     if name1 is not None:
         doc.name1 = name1
     if type1 is not None:
