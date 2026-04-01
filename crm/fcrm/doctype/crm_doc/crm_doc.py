@@ -77,9 +77,9 @@ def create_crm_doc():
 
     new_doc = frappe.get_doc(doc_data)
     new_doc.insert()
-	frappe.db.commit()
-    return new_doc.name
+    frappe.db.commit()
 
+    return new_doc.name
 
 @frappe.whitelist()
 def get_crm_doc(doc_id):
