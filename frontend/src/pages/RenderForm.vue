@@ -9,12 +9,6 @@
 
 <template>
   <div class="p-4">
-    <!-- Debug (optional) -->
-    <div class="mb-2 text-sm text-gray-500">
-      Doctype: {{ doctype }}
-    </div>
-
-    <!-- Form -->
     <FormModel v-if="doctype" :doctype="doctype" />
   </div>
 </template>
