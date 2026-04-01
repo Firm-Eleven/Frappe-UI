@@ -59,7 +59,7 @@ const props = defineProps({
 })
 
 console.log("doctype:", props.doctype)
-const docType = 'Crm Doc'
+const docType = props.doctype
 
 const { document } = useDocument(docType)
 const doc = document.doc
@@ -81,6 +81,7 @@ function createDoc() {
   createResource({
     url: 'crm.fcrm.doctype.crm_doc.crm_doc.create_crm_doc',
     params: {
+      doctype:props.doctype,
       args: {
         doc: doc.doc
       },
