@@ -62,6 +62,7 @@ class CrmDoc(Document):
 def create_crm_doc():
 
     data = frappe.form_dict
+	doctype = data.get("doctype")
     args = data.get("args")
 
     if isinstance(args, str):
@@ -72,7 +73,7 @@ def create_crm_doc():
         frappe.throw("No document data received")
 		
     doc_data = {
-        "doctype": "CRM Doc",
+        "doctype": doctype,
         **doc_data
     }
 
