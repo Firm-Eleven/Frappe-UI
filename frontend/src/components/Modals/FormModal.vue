@@ -31,11 +31,12 @@
           :loading="loading"
           @click="createDoc"
         />
+        <!-- Footer 
         <Button
           variant="ghost"
           :label="__('Edit Full Form')"
           @click="openFullForm"
-        />
+        />-->
       </div>
     </div>
   </div>
