@@ -77,24 +77,8 @@ def create_crm_doc():
 
     new_doc = frappe.get_doc(doc_data)
     new_doc.insert()
+	frappe.db.commit()
     return new_doc.name
-# @frappe.whitelist()
-# def create_crm_doc():
-#     data = frappe.form_dict
-
-#     args = data.get("args", {})
-# 	frappe.throw(f"ARGS : {args}")
-#     if isinstance(args, str):
-#         args = frappe.parse_json(args)
-
-#     new_doc = frappe.get_doc({
-#         "doctype": "CRM Doc",
-#         **args
-#     })
-
-#     new_doc.insert()
-
-#     return new_doc.name
 
 
 @frappe.whitelist()
