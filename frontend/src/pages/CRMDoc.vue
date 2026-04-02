@@ -78,47 +78,47 @@ import MultipleAvatar from '@/components/MultipleAvatar.vue'
 import CustomActions from '@/components/CustomActions.vue'
 import EmailAtIcon from '@/components/Icons/EmailAtIcon.vue'
 import PhoneIcon from '@/components/Icons/PhoneIcon.vue'
-import NoteIcon from '@/components/Icons/NoteIcon.vue'
-import TaskIcon from '@/components/Icons/TaskIcon.vue'
+// import NoteIcon from '@/components/Icons/NoteIcon.vue'
+// import TaskIcon from '@/components/Icons/TaskIcon.vue'
 import CommentIcon from '@/components/Icons/CommentIcon.vue'
 import IndicatorIcon from '@/components/Icons/IndicatorIcon.vue'
-import DealsIcon from '@/components/Icons/DealsIcon.vue'
+// import DealsIcon from '@/components/Icons/DealsIcon.vue'
 import LayoutHeader from '@/components/LayoutHeader.vue'
 import DealsListView from '@/components/ListViews/DealsListView.vue'
 import CRMDocListView from '@/components/ListViews/CRMDocListView.vue'
-import DealModal from '@/components/Modals/DealModal.vue'
+// import DealModal from '@/components/Modals/DealModal.vue'
 import CRMDocModal from '@/components/Modals/CRMDocModal.vue'
-import NoteModal from '@/components/Modals/NoteModal.vue'
-import TaskModal from '@/components/Modals/TaskModal.vue'
+// import NoteModal from '@/components/Modals/NoteModal.vue'
+// import TaskModal from '@/components/Modals/TaskModal.vue'
 import ViewControls from '@/components/ViewControls.vue'
 import { getMeta } from '@/stores/meta'
 import { globalStore } from '@/stores/global'
 import { usersStore } from '@/stores/users'
-import { organizationsStore } from '@/stores/organizations'
+// import { organizationsStore } from '@/stores/organizations'
 import { statusesStore } from '@/stores/statuses'
-import { callEnabled } from '@/composables/settings'
+// import { callEnabled } from '@/composables/settings'
 import { formatDate, timeAgo, website, formatTime } from '@/utils'
 import { Tooltip, Avatar, Dropdown } from 'frappe-ui'
 import { useRouter, useRoute } from 'vue-router'
 import { ref, reactive, computed, h } from 'vue'
 
-const { getFormattedPercent, getFormattedFloat, getFormattedCurrency } =
-  getMeta('CRM Deal')
-const { makeCall } = globalStore()
+// const { getFormattedPercent, getFormattedFloat, getFormattedCurrency } =
+//   getMeta('CRM Deal')
+// const { makeCall } = globalStore()
 const { getUser } = usersStore()
-const { getOrganization } = organizationsStore()
-const { getDealStatus } = statusesStore()
+// const { getOrganization } = organizationsStore()
+// const { getDealStatus } = statusesStore()
 
 const route = useRoute()
 const router = useRouter()
 
-const dealsListView = ref(null)
-const showDealModal = ref(false)
+// const dealsListView = ref(null)
+// const showDealModal = ref(false)
 
 const defaults = reactive({})
 
 // deals data is loaded in the ViewControls component
-const deals = ref({})
+// const deals = ref({})
 const loadMore = ref(1)
 const triggerResize = ref(1)
 const updatedPageCount = ref(20)
@@ -196,113 +196,113 @@ function getKanbanRows(data, columns) {
   return parseRows(_rows, columns)
 }
 
-function parseRows(rows, columns = []) {
-  let view_type = deals.value.data.view_type
-  let key = view_type === 'kanban' ? 'fieldname' : 'key'
-  let type = view_type === 'kanban' ? 'fieldtype' : 'type'
+// function parseRows(rows, columns = []) {
+//   let view_type = deals.value.data.view_type
+//   let key = view_type === 'kanban' ? 'fieldname' : 'key'
+//   let type = view_type === 'kanban' ? 'fieldtype' : 'type'
 
-  return rows.map((deal) => {
-    let _rows = {}
-    deals.value.data.rows.forEach((row) => {
-      _rows[row] = deal[row]
+//   return rows.map((deal) => {
+//     let _rows = {}
+//     deals.value.data.rows.forEach((row) => {
+//       _rows[row] = deal[row]
 
-      let fieldType = columns?.find((col) => (col[key] || col.value) == row)?.[
-        type
-      ]
+//       let fieldType = columns?.find((col) => (col[key] || col.value) == row)?.[
+//         type
+//       ]
 
-      if (
-        fieldType &&
-        ['Date', 'Datetime'].includes(fieldType) &&
-        !['modified', 'creation'].includes(row)
-      ) {
-        _rows[row] = formatDate(deal[row], '', true, fieldType == 'Datetime')
-      }
+//       if (
+//         fieldType &&
+//         ['Date', 'Datetime'].includes(fieldType) &&
+//         !['modified', 'creation'].includes(row)
+//       ) {
+//         _rows[row] = formatDate(deal[row], '', true, fieldType == 'Datetime')
+//       }
 
-      if (fieldType && fieldType == 'Currency') {
-        _rows[row] = getFormattedCurrency(row, deal)
-      }
+//       if (fieldType && fieldType == 'Currency') {
+//         _rows[row] = getFormattedCurrency(row, deal)
+//       }
 
-      if (fieldType && fieldType == 'Float') {
-        _rows[row] = getFormattedFloat(row, deal)
-      }
+//       if (fieldType && fieldType == 'Float') {
+//         _rows[row] = getFormattedFloat(row, deal)
+//       }
 
-      if (fieldType && fieldType == 'Percent') {
-        _rows[row] = getFormattedPercent(row, deal)
-      }
+//       if (fieldType && fieldType == 'Percent') {
+//         _rows[row] = getFormattedPercent(row, deal)
+//       }
 
-      if (row == 'organization') {
-        _rows[row] = {
-          label: deal.organization,
-          logo: getOrganization(deal.organization)?.organization_logo,
-        }
-      } else if (row === 'website') {
-        _rows[row] = website(deal.website)
-      } else if (row == 'status') {
-        _rows[row] = {
-          label: deal.status,
-          color: getDealStatus(deal.status)?.color,
-        }
-      } else if (row == 'sla_status') {
-        let value = deal.sla_status
-        let tooltipText = value
-        let color =
-          deal.sla_status == 'Failed'
-            ? 'red'
-            : deal.sla_status == 'Fulfilled'
-              ? 'green'
-              : 'orange'
-        if (value == 'First Response Due') {
-          value = __(timeAgo(deal.response_by))
-          tooltipText = formatDate(deal.response_by)
-          if (new Date(deal.response_by) < new Date()) {
-            color = 'red'
-          }
-        }
-        _rows[row] = {
-          label: tooltipText,
-          value: value,
-          color: color,
-        }
-      } else if (row == 'deal_owner') {
-        _rows[row] = {
-          label: deal.deal_owner && getUser(deal.deal_owner).full_name,
-          ...(deal.deal_owner && getUser(deal.deal_owner)),
-        }
-      } else if (row == '_assign') {
-        let assignees = JSON.parse(deal._assign || '[]')
-        _rows[row] = assignees.map((user) => ({
-          name: user,
-          image: getUser(user).user_image,
-          label: getUser(user).full_name,
-        }))
-      } else if (['modified', 'creation'].includes(row)) {
-        _rows[row] = {
-          label: formatDate(deal[row]),
-          timeAgo: __(timeAgo(deal[row])),
-        }
-      } else if (
-        ['first_response_time', 'first_responded_on', 'response_by'].includes(
-          row,
-        )
-      ) {
-        let field = row == 'response_by' ? 'response_by' : 'first_responded_on'
-        _rows[row] = {
-          label: deal[field] ? formatDate(deal[field]) : '',
-          timeAgo: deal[row]
-            ? row == 'first_response_time'
-              ? formatTime(deal[row])
-              : __(timeAgo(deal[row]))
-            : '',
-        }
-      }
-    })
-    _rows['_email_count'] = deal._email_count
-    _rows['_note_count'] = deal._note_count
-    _rows['_task_count'] = deal._task_count
-    _rows['_comment_count'] = deal._comment_count
-    return _rows
-  })
-}
+//       if (row == 'organization') {
+//         _rows[row] = {
+//           label: deal.organization,
+//           logo: getOrganization(deal.organization)?.organization_logo,
+//         }
+//       } else if (row === 'website') {
+//         _rows[row] = website(deal.website)
+//       } else if (row == 'status') {
+//         _rows[row] = {
+//           label: deal.status,
+//           color: getDealStatus(deal.status)?.color,
+//         }
+//       } else if (row == 'sla_status') {
+//         let value = deal.sla_status
+//         let tooltipText = value
+//         let color =
+//           deal.sla_status == 'Failed'
+//             ? 'red'
+//             : deal.sla_status == 'Fulfilled'
+//               ? 'green'
+//               : 'orange'
+//         if (value == 'First Response Due') {
+//           value = __(timeAgo(deal.response_by))
+//           tooltipText = formatDate(deal.response_by)
+//           if (new Date(deal.response_by) < new Date()) {
+//             color = 'red'
+//           }
+//         }
+//         _rows[row] = {
+//           label: tooltipText,
+//           value: value,
+//           color: color,
+//         }
+//       } else if (row == 'deal_owner') {
+//         _rows[row] = {
+//           label: deal.deal_owner && getUser(deal.deal_owner).full_name,
+//           ...(deal.deal_owner && getUser(deal.deal_owner)),
+//         }
+//       } else if (row == '_assign') {
+//         let assignees = JSON.parse(deal._assign || '[]')
+//         _rows[row] = assignees.map((user) => ({
+//           name: user,
+//           image: getUser(user).user_image,
+//           label: getUser(user).full_name,
+//         }))
+//       } else if (['modified', 'creation'].includes(row)) {
+//         _rows[row] = {
+//           label: formatDate(deal[row]),
+//           timeAgo: __(timeAgo(deal[row])),
+//         }
+//       } else if (
+//         ['first_response_time', 'first_responded_on', 'response_by'].includes(
+//           row,
+//         )
+//       ) {
+//         let field = row == 'response_by' ? 'response_by' : 'first_responded_on'
+//         _rows[row] = {
+//           label: deal[field] ? formatDate(deal[field]) : '',
+//           timeAgo: deal[row]
+//             ? row == 'first_response_time'
+//               ? formatTime(deal[row])
+//               : __(timeAgo(deal[row]))
+//             : '',
+//         }
+//       }
+//     })
+//     _rows['_email_count'] = deal._email_count
+//     _rows['_note_count'] = deal._note_count
+//     _rows['_task_count'] = deal._task_count
+//     _rows['_comment_count'] = deal._comment_count
+//     return _rows
+//   })
+// }
 
 function onNewClick(column) {
   let column_field = deals.value.params.column_field
@@ -339,30 +339,30 @@ function actions(itemName) {
   )
 }
 
-const docname = ref('')
-const showNoteModal = ref(false)
-const note = ref({
-  title: '',
-  content: '',
-})
+// const docname = ref('')
+// const showNoteModal = ref(false)
+// const note = ref({
+//   title: '',
+//   content: '',
+// })
 
-function showNote(name) {
-  docname.value = name
-  showNoteModal.value = true
-}
+// function showNote(name) {
+//   docname.value = name
+//   showNoteModal.value = true
+// }
 
-const showTaskModal = ref(false)
-const task = ref({
-  title: '',
-  description: '',
-  assigned_to: '',
-  due_date: '',
-  priority: 'Low',
-  status: 'Backlog',
-})
+// const showTaskModal = ref(false)
+// const task = ref({
+//   title: '',
+//   description: '',
+//   assigned_to: '',
+//   due_date: '',
+//   priority: 'Low',
+//   status: 'Backlog',
+// })
 
-function showTask(name) {
-  docname.value = name
-  showTaskModal.value = true
-}
+// function showTask(name) {
+//   docname.value = name
+//   showTaskModal.value = true
+// }
 </script>
