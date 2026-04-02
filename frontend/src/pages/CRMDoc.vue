@@ -66,7 +66,6 @@ import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
 import { Button, FeatherIcon } from 'frappe-ui'
 import { timeAgo } from '@/utils'
-import { __ } from 'frappe-ui'
 
 // Router
 const router = useRouter()
