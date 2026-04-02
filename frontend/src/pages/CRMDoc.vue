@@ -52,7 +52,8 @@
       (selections) => viewControls.updateSelections(selections)
     "
   />
-  
+
+  <!--
   <div v-else="deals.data" class="flex h-full items-center justify-center">
     <div
       class="flex flex-col items-center gap-3 text-xl font-medium text-ink-gray-4"
@@ -68,7 +69,7 @@
     v-if="showDealModal"
     v-model="showDealModal"
     :defaults="defaults"
-  />
+  /> -->
 </template>
 
 <script setup>
