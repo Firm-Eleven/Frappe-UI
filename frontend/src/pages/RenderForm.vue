@@ -26,6 +26,7 @@
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import FormModel from '@/components/Modals/FormModal.vue'
+import Breadcrumbs from '@/components/Breadcrumbs.vue'
 
 const route = useRoute()
 
