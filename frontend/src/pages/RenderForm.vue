@@ -29,7 +29,6 @@ import FormModel from '@/components/Modals/FormModal.vue'
 
 const route = useRoute()
 
-// Convert slug → "CRM Doc"
 function formatDoctype(slug) {
   if (!slug) return ''
   return slug
@@ -38,9 +37,7 @@ function formatDoctype(slug) {
     .join(' ')
 }
 
-// Extract doctype from URL
 const doctype = computed(() => {
-  // Example: /crm-doc/render-form → ['crm-doc', 'render-form']
   const pathParts = route.path.split('/').filter(Boolean)
 
   const slug = pathParts[0] // "crm-doc"
@@ -50,11 +47,11 @@ const doctype = computed(() => {
 const breadcrumbs = computed(() => {
   return [
     {
-      label: __('CRM Doc'),
-      route: { name: 'CRM Doc' } // list view navigation
+      label: 'CRM Doc',
+      route: '/crm-doc/view'
     },
     {
-      label: __('New') // static
+      label: 'New'
     }
   ]
 })
