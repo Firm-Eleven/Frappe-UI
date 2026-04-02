@@ -28,7 +28,7 @@
   />
 
   <!-- List View -->
-  <CRMDocListView
+  <SalesInvoiceListView
     v-if="docs.data && rows.length"
     v-model="docs.data.page_length_count"
     v-model:list="docs"
@@ -60,7 +60,7 @@
 <script setup>
 import ViewBreadcrumbs from '@/components/ViewBreadcrumbs.vue'
 import LayoutHeader from '@/components/LayoutHeader.vue'
-import CRMDocListView from '@/components/ListViews/CRMDocListView.vue'
+import SalesInvoiceListView from '@/components/ListViews/SalesInvoiceListView.vue'
 import ViewControls from '@/components/ViewControls.vue'
 import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
