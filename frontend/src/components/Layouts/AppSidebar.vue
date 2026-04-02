@@ -213,35 +213,10 @@ const links = [
     to: 'CRM Doc',
   },
   {
-    label: 'Contacts',
-    icon: ContactsIcon,
-    to: 'Contacts',
-  },
-  {
-    label: 'Organizations',
-    icon: OrganizationsIcon,
-    to: 'Organizations',
-  },
-  {
-    label: 'Notes',
+    label: 'Sales Invoice',
     icon: NoteIcon,
-    to: 'Notes',
-  },
-  {
-    label: 'Tasks',
-    icon: TaskIcon,
-    to: 'Tasks',
-  },
-  {
-    label: 'Call Logs',
-    icon: PhoneIcon,
-    to: 'Call Logs',
-  },
-  {
-    label: 'Email Templates',
-    icon: Email2Icon,
-    to: 'Email Templates',
-  },
+    to: 'Sales Invoice',
+  }
 ]
 
 const allViews = computed(() => {
