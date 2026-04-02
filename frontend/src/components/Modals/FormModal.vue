@@ -49,6 +49,26 @@ import { createResource } from 'frappe-ui'
 import { getMeta } from '@/stores/meta'
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { timeAgo } from '@/utils'
+import { __ } from 'frappe-ui'
+
+const rows = computed(() => {
+  const data = docs.value?.data?.data || []
+
+  return data.map((row) => {
+    return {
+      ...row,
+
+      modified: row.modified
+        ? __(timeAgo(row.modified))
+        : '',
+
+      creation: row.creation
+        ? __(timeAgo(row.creation))
+        : ''
+    }
+  })
+})
 
 const router = useRouter()
 
