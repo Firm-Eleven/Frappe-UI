@@ -68,24 +68,6 @@ import { Button, FeatherIcon } from 'frappe-ui'
 import { timeAgo } from '@/utils'
 import { __ } from 'frappe-ui'
 
-const rows = computed(() => {
-  const data = docs.value?.data?.data || []
-
-  return data.map((row) => {
-    return {
-      ...row,
-
-      modified: row.modified
-        ? __(timeAgo(row.modified))
-        : '',
-
-      creation: row.creation
-        ? __(timeAgo(row.creation))
-        : ''
-    }
-  })
-})
-
 // Router
 const router = useRouter()
 
@@ -101,8 +83,15 @@ function goToForm() {
   router.push({ name: 'RenderForm', params: { doctype: 'crm-doc' } })
 }
 
-// Rows (simple for now)
 const rows = computed(() => {
-  return docs.value?.data?.data || []
+  const data = docs.value?.data?.data || []
+
+  return data.map((row) => {
+    return {
+      ...row,
+      modified: row.modified ? __(timeAgo(row.modified)) : '',
+      creation: row.creation ? __(timeAgo(row.creation)) : ''
+    }
+  })
 })
 </script>
