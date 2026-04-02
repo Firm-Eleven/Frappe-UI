@@ -88,8 +88,20 @@ const rows = computed(() => {
   return data.map((row) => {
     return {
       ...row,
-      modified: row.modified ? __(timeAgo(row.modified)) : '',
-      creation: row.creation ? __(timeAgo(row.creation)) : ''
+
+      modified: row.modified
+        ? {
+            label: formatDate(row.modified),
+            timeAgo: __(timeAgo(row.modified)),
+          }
+        : '',
+
+      creation: row.creation
+        ? {
+            label: formatDate(row.creation),
+            timeAgo: __(timeAgo(row.creation)),
+          }
+        : ''
     }
   })
 })
