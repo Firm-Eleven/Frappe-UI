@@ -8,6 +8,7 @@
 </template> -->
 
 <template>
+  <ViewBreadcrumbs :items="breadcrumbs" />
   <div class="p-4">
     <FormModel v-if="doctype" :doctype="doctype" />
   </div>
@@ -36,5 +37,17 @@ const doctype = computed(() => {
 
   const slug = pathParts[0] // "crm-doc"
   return formatDoctype(slug) // "CRM Doc"
+})
+
+const breadcrumbs = computed(() => {
+  return [
+    {
+      label: __('CRM Doc'),
+      route: { name: 'CRM Doc' } // list view navigation
+    },
+    {
+      label: __('New') // static
+    }
+  ]
 })
 </script>
