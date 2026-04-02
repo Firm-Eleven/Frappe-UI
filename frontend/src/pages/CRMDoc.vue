@@ -65,6 +65,26 @@ import ViewControls from '@/components/ViewControls.vue'
 import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
 import { Button, FeatherIcon } from 'frappe-ui'
+import { timeAgo } from '@/utils'
+import { __ } from 'frappe-ui'
+
+const rows = computed(() => {
+  const data = docs.value?.data?.data || []
+
+  return data.map((row) => {
+    return {
+      ...row,
+
+      modified: row.modified
+        ? __(timeAgo(row.modified))
+        : '',
+
+      creation: row.creation
+        ? __(timeAgo(row.creation))
+        : ''
+    }
+  })
+})
 
 // Router
 const router = useRouter()
