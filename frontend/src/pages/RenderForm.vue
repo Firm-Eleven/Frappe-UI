@@ -8,7 +8,15 @@
 </template> -->
 
 <template>
-  <ViewBreadcrumbs :items="breadcrumbs" />
+  <LayoutHeader>
+    <template #left-header>
+      <Breadcrumbs :items="breadcrumbs">
+        <template #prefix="{ item }">
+          <Icon v-if="item.icon" :icon="item.icon" class="mr-2 h-4" />
+        </template>
+      </Breadcrumbs>
+    </template>
+  </LayoutHeader>
   <div class="p-4">
     <FormModel v-if="doctype" :doctype="doctype" />
   </div>
