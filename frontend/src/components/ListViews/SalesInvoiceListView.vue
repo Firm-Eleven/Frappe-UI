@@ -40,7 +40,7 @@
     <ListRows
   	:rows="rows"
  	v-slot="{ idx, column, item, row }"
-  	doctype="CRM Doc"
+  	doctype="Sales Invoice"
 	>
 
   	<ListRowItem v-if="column.key === 'customer'" :item="item" :align="column.align">
