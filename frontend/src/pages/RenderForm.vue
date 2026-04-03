@@ -50,7 +50,6 @@ function formatDoctype(slug) {
 //   const slug = pathParts[0] // "crm-doc"
 //   return formatDoctype(slug) // "CRM Doc"
 // })
-const route = useRoute()
 
 const doctype = computed(() => {
   return route.params.doctype
