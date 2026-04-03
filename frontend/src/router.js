@@ -115,7 +115,7 @@ const routes = [
     component: () => import('@/pages/Welcome.vue'),
   },
   {
-    path: '/crm-doc/render-form',
+    path: '/:doctype/render-form',
     name: 'RenderForm',
     component: () => import('@/pages/RenderForm.vue'),
   },
