@@ -44,12 +44,20 @@ function formatDoctype(slug) {
     .join(' ')
 }
 
-const doctype = computed(() => {
-  const pathParts = route.path.split('/').filter(Boolean)
+// const doctype = computed(() => {
+//   const pathParts = route.path.split('/').filter(Boolean)
 
-  const slug = pathParts[0] // "crm-doc"
-  return formatDoctype(slug) // "CRM Doc"
+//   const slug = pathParts[0] // "crm-doc"
+//   return formatDoctype(slug) // "CRM Doc"
+// })
+const route = useRoute()
+
+const doctype = computed(() => {
+  return route.params.doctype
+    ? formatDoctype(route.params.doctype)
+    : ''
 })
+console.log("Renderform doctype: ", doctype)
 
 const breadcrumbs = computed(() => {
   return [
