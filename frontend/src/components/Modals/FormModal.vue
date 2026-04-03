@@ -61,7 +61,7 @@ const props = defineProps({
 
 console.log("doctype:", props.doctype)
 const doct = props.doctype
-const docType = 'CRM Doc'
+const docType = props.doctype
 
 const { document } = useDocument(docType)
 const doc = document.doc
