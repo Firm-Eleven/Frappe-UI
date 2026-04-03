@@ -21,7 +21,7 @@
     v-model:loadMore="loadMore"
     v-model:resizeColumn="triggerResize"
     v-model:updatedPageCount="updatedPageCount"
-    doctype="CRM Doc"
+    doctype="Sales Invoice"
     :options="{
       allowedViews: ['list']
     }"
