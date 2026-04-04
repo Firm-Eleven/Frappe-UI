@@ -61,8 +61,8 @@ console.log("Renderform doctype: ", doctype)
 const breadcrumbs = computed(() => {
   return [
     {
-      label: 'CRM Doc',
-      route: '/crm-doc/view'
+      label: doctype,
+      route: '/route.params.doctype/view'
     },
     {
       label: 'New'
