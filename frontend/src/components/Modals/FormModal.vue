@@ -95,7 +95,7 @@ function createDoc() {
       router.push({
         name: 'CRMDocID',
         params: {
-          doctype: toSlug(docType.value),  // ✅ convert here
+          doctype: toSlug(docType),  // ✅ convert here
           docId: name
         }
       })
