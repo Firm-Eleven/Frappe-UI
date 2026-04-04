@@ -12,7 +12,7 @@
     <div class="flex-1 p-4 overflow-y-auto">
 
       <DataFields
-        doctype="CRM Doc"
+        :doctype=doctype
         :docname="crmDoc.data.name"
         @afterSave="() => crmDoc.reload()"
       />
@@ -73,9 +73,10 @@ import { ref, computed, h, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useActiveTabManager } from '@/composables/useActiveTabManager'
 
+const doctype = 'Sales Invoice'  
 const { brand } = getSettings()
 const { $dialog, $socket, makeCall } = globalStore()
-const { doctypeMeta } = getMeta('CRM Doc')
+const { doctypeMeta } = getMeta(doctype)
 
 const { updateOnboardingStep, isOnboardingStepsCompleted } =
   useOnboarding('frappecrm')
@@ -127,7 +128,7 @@ const crmDoc = createResource({
       errorTitle.value = __('Not permitted')
       errorMessage.value = __(err.messages?.[0])
     } else {
-      router.push({ name: 'CRM Doc' })
+      router.push({ name: doctype })
     }
   },
 })
@@ -154,7 +155,7 @@ function updateDoc(fieldname, value, callback) {
   createResource({
     url: 'frappe.client.set_value',
     params: {
-      doctype: 'CRM Doc',
+      doctype: doctype,
       name: props.docId,
       fieldname,
       value,
@@ -185,26 +186,26 @@ const breadcrumbs = computed(() => {
   // Top level: CRM Doc list
   let items = [
     { 
-      label: __('CRM Doc'), 
-      route: { name: 'CRM Doc' }  // list view route name
+      label: __(doctype), 
+      route: { name: doctype }  // list view route name
     }
   ]
 
   // Optional view (kanban, table, etc.)
-  if (route.query.view || route.query.viewType) {
-    let view = getView(route.query.view, route.query.viewType, 'CRM Doc')
-    if (view) {
-      items.push({
-        label: __(view.label),
-        icon: view.icon,
-        route: {
-          name: 'CRM Doc',
-          params: { viewType: route.query.viewType },
-          query: { view: route.query.view },
-        },
-      })
-    }
-  }
+  // if (route.query.view || route.query.viewType) {
+  //   let view = getView(route.query.view, route.query.viewType, 'CRM Doc')
+  //   if (view) {
+  //     items.push({
+  //       label: __(view.label),
+  //       icon: view.icon,
+  //       route: {
+  //         name: 'CRM Doc',
+  //         params: { viewType: route.query.viewType },
+  //         query: { view: route.query.view },
+  //       },
+  //     })
+  //   }
+  // }
 
   // Current record
   items.push({
@@ -220,7 +221,7 @@ const breadcrumbs = computed(() => {
 
 
 const title = computed(() => {
-  let t = doctypeMeta['CRM Doc']?.title_field || 'name'
+  let t = doctypeMeta[doctype]?.title_field || 'name'
   return crmDoc.data?.[t] || props.docId
 })
 
@@ -241,10 +242,10 @@ function updateField(name, value, callback) {
 
 async function deleteDoc(name) {
   await call('frappe.client.delete', {
-    doctype: 'CRM Doc',
+    doctype: doctype,
     name,
   })
-  router.push({ name: 'CRM Doc' })
+  router.push({ name: doctype })
 }
 
 </script>
