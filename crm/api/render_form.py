@@ -68,18 +68,21 @@ def update_doc():
 @frappe.whitelist()
 def get_list_view_columns(doctype, limit=3):
     meta = frappe.get_meta(doctype)
-    
-    if not meta or not meta.fields:
-        
-        return []
 
-    # 🔹 In List View fields filter
+    if not meta or not meta.fields:
+        return [{"key": "name", "label": "ID", "align": "left"}]
+
     fields = [f for f in meta.fields if f.in_list_view]
 
-    # 🔹 limit apply
+    # ✅ fallback if empty
+    if not fields:
+        return [
+            {"key": "name", "label": "ID", "align": "left"},
+            {"key": "modified", "label": "Modified", "align": "left"},
+        ]
+
     fields = fields[:int(limit)]
 
-    # 🔹 columns format
     columns = [
         {
             "key": f.fieldname,
@@ -89,7 +92,14 @@ def get_list_view_columns(doctype, limit=3):
         for f in fields
     ]
 
-    # 🔹 modified add
+    # ✅ always ensure name exists (important for routing)
+    if not any(col["key"] == "name" for col in columns):
+        columns.insert(0, {
+            "key": "name",
+            "label": "ID",
+            "align": "left"
+        })
+
     columns.append({
         "key": "modified",
         "label": "Modified",
@@ -99,11 +109,22 @@ def get_list_view_columns(doctype, limit=3):
     return columns
 
 
-@frappe.whitelist()   
+@frappe.whitelist()
 def get_list_view_rows(doctype):
-    # Columns jo list view me visible hain
-    fields = [f.fieldname for f in frappe.get_meta(doctype).fields if f.in_list_view] + ["modified"]
+    meta = frappe.get_meta(doctype)
 
-    # rows fetch karo
+    fields = [f.fieldname for f in meta.fields if f.in_list_view]
+
+    # ✅ fallback
+    if not fields:
+        fields = ["name"]
+
+    # ✅ always include name + modified
+    if "name" not in fields:
+        fields.insert(0, "name")
+
+    if "modified" not in fields:
+        fields.append("modified")
+
     docs = frappe.get_list(doctype, fields=fields)
     return docs
