@@ -59,7 +59,7 @@ const props = defineProps({
   doctype: String
 })
 
-console.log("doctype:", props.doctype)
+console.log("Model -- doctype:", props.doctype)
 const doct = props.doctype
 const docType = props.doctype
 
