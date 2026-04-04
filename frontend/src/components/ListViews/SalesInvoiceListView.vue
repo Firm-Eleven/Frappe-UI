@@ -6,7 +6,7 @@
     :options="{
       getRowRoute: (row) => ({
         name: 'CRMDocID',
-        params: { doctype:doctype,docId: row.name },
+        params: { doctype:doctype,docId: row.id },
         query: { view: route.query.view, viewType: route.params.viewType },
       }),
       selectable: options.selectable,
@@ -123,7 +123,7 @@
     }"
     @loadMore="emit('loadMore')"
   />
-  <ListBulkActions ref="listBulkActionsRef" v-model="list" doctype=doctype />
+  <ListBulkActions ref="listBulkActionsRef" v-model="list" :doctype=doctype />
 </template>
 
 <script setup>
@@ -151,15 +151,10 @@ import { useRoute } from 'vue-router'
 import { formatDate, timeAgo, website, formatTime } from '@/utils'
 const doctype = 'Sales Invoice'
 
-console.log("ROWS:", rows)	
 const props = defineProps({
   rows: {
     type: Array,
     required: true,
-  },
-  doctype: {
-    type: String,
-    default: doctype
   },
   options: {
     type: Object,
@@ -177,7 +172,7 @@ const props = defineProps({
 const columns = ref([])
 const columnsResource = createResource({
   url: 'crm.api.render_form.get_list_view_columns',
-  params: { doctype: props.doctype, limit: 3 },
+  params: { doctype: doctype, limit: 3 },
   auto: true,
   onSuccess(data) {
     columns.value = data || []
@@ -194,14 +189,13 @@ const rows = ref([])
 function fetchRows() {
   createResource({
     url: 'crm.api.render_form.get_list_view_rows',
-    params: { doctype: props.doctype},
+    params: { doctype: doctype},
     auto: true,
     onSuccess(data) {
       const updatedRows = data.map(row => {
         columns.value.forEach(col => {
           // Fill missing fields
           if (!(col.key in row)) {
-            if (col.key === "custom_total") row[col.key] = 0
             if (col.key !== "modified") row[col.key] = ""
           }
         })
@@ -220,6 +214,7 @@ function fetchRows() {
   })
 }
 	
+console.log("ROWS:", rows)		
 const emit = defineEmits([
   'loadMore',
   'updatePageCount',
