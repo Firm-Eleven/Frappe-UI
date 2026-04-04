@@ -8,6 +8,7 @@
  "field_order": [
   "item",
   "city",
+  "qty",
   "rate",
   "amount",
   "uom",
@@ -30,6 +31,7 @@
   {
    "fieldname": "rate",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Rate"
   },
   {
@@ -46,13 +48,18 @@
    "fieldname": "cnic",
    "fieldtype": "Data",
    "label": "CNIC"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "label": "Qty"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-03-27 17:55:11.659040",
+ "modified": "2026-04-04 14:22:32.534248",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "Items Table",
