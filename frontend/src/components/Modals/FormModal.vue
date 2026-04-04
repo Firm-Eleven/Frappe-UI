@@ -113,20 +113,29 @@ function createDoc() {
   })
 }
 
-// Navigate to full form
-function openFullForm() {
-  router.push({
-    name: 'CRMDocID',
-    params: {
-      docId: doc.doc?.name || 'new'
-    }
-  })
-}
 
 function toSlug(doctype) {
   return doctype
     .toLowerCase()
     .replace(/\s+/g, '-')   // spaces → hyphens
+}
+
+function resetDoc() {
+  let newDoc = {}
+
+  tabs.data?.forEach(tab => {
+    tab.sections?.forEach(section => {
+      section.columns?.forEach(col => {
+        col.fields?.forEach(field => {
+          if (field.fieldtype === 'Table') {
+            newDoc[field.fieldname] = []
+          }
+        })
+      })
+    })
+  })
+
+  doc.doc = newDoc
 }
   
 // Initialize empty doc
