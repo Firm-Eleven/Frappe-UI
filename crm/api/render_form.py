@@ -67,6 +67,7 @@ def update_doc():
 
 @frappe.whitelist()
 def get_list_view_columns(doctype, limit=3):
+    frappe.throw(f"DDDDDD : {doctype}")
     meta = frappe.get_meta(doctype)
 
     if not meta or not meta.fields:
