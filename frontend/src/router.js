@@ -44,7 +44,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/crm-doc/:docId',
+    path: '/:doctype/:docId',
     name: 'CRMDocID',
     component: () => import(`@/pages/${handleMobileView('CRMDocRecord')}.vue`),
     props: true,
