@@ -160,7 +160,7 @@ const doctypeee = computed(() => {
     .replace(/-/g, ' ')        // sales-invoice → sales invoice
     .replace(/\b\w/g, c => c.toUpperCase()) // Sales Invoice
 })
-console.log("doctypeeee : ", doctypeee)	
+console.log("doctypeeee : ", doctypeee.value)
 const props = defineProps({
   rows: {
     type: Array,
