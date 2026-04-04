@@ -81,7 +81,7 @@ function createDoc() {
   loading.value = true
 
   createResource({
-    url: 'crm.fcrm.doctype.crm_doc.crm_doc.create_crm_doc',
+    url: 'crm.api.render_form.create_doc',
     params: {
       doctype:docType,
       args: {
