@@ -6,7 +6,7 @@
     :options="{
       getRowRoute: (row) => ({
         name: 'CRMDocID',
-        params: { docId: row.id }, 
+        params: { doctype:doctype,docId: row.id }, 
         query: { view: route.query.view, viewType: route.params.viewType },
       }),
       selectable: options.selectable,
@@ -156,7 +156,8 @@ const isLikeFilterApplied = computed(() => {
 })
 
 const { user } = sessionStore()
-
+const doctype = 'Sales Invoice'
+	
 function isLiked(item) {
   if (item) {
     let likedByMe = JSON.parse(item)
