@@ -151,7 +151,7 @@ import { useRoute } from 'vue-router'
 import { formatDate, timeAgo, website, formatTime } from '@/utils'
 const doctype = 'Sales Invoice'
 
-	
+console.log("ROWS:", rows)	
 const props = defineProps({
   rows: {
     type: Array,
