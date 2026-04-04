@@ -6,4 +6,33 @@ from frappe.model.document import Document
 
 
 class SalesInvoice(Document):
-	pass
+	
+	@staticmethod
+	def default_list_data():
+		columns = [
+			{
+				"label": "Name",
+				"type": "Data",
+				"key": "customer",
+				"width": "12rem",
+			},
+			{
+				"label": "Customer",
+				"type": "Data",
+				"key": "customer",
+				"options": "",
+				"width": "10rem",
+			},
+			{
+				"label": "Last Modified",
+				"type": "Datetime",
+				"key": "modified",
+				"width": "8rem",
+			},
+		]
+		rows = [
+			"name",
+			"customer",
+			"modified"
+		]
+		return {"columns": columns, "rows": rows}
