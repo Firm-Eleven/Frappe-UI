@@ -194,7 +194,7 @@ const rows = ref([])
 function fetchRows() {
   createResource({
     url: 'crm.api.render_form.get_list_view_rows',
-    params: { doctype: props.doctype, limit: 0 },
+    params: { doctype: props.doctype},
     auto: true,
     onSuccess(data) {
       const updatedRows = data.map(row => {
