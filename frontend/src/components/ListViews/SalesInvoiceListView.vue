@@ -6,7 +6,7 @@
     :options="{
       getRowRoute: (row) => ({
         name: 'CRMDocID',
-        params: { doctype:doctype,docId: row.id },
+        params: { doctype:doctype,docId: row.name },
         query: { view: route.query.view, viewType: route.params.viewType },
       }),
       selectable: options.selectable,
