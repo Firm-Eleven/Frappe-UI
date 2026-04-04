@@ -4,7 +4,7 @@ import frappe
 def create_doc():
     data = frappe.form_dict
     doctype = data.get("doctype")
-    frappe.throw(f"Doctype : ", doctype)
+    frappe.throw(f"Doctype : ", data)
     args = data.get("args")
 
     if isinstance(args, str):
