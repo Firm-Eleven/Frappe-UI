@@ -94,11 +94,14 @@ const props = defineProps({
 const errorTitle = ref('')
 const errorMessage = ref('')
 
-// Main CRM Doc resource
+console.log("props docid : ",props.docId)
 const crmDoc = createResource({
-  url: 'crm.fcrm.doctype.crm_doc.api.get_doc',
-  params: { name: props.docId },
-  cache: ['crmDoc', props.docId],
+  url: 'crm.api.render_form.get_doc',  // make sure path matches your file
+  params: {
+    doctype: doctype,
+    doc_id: props.docId
+  },
+  cache: ['crmDoc', doctype, props.docId],
 
   onSuccess: (data) => {
     errorTitle.value = ''
