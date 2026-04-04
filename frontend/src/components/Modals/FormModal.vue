@@ -95,6 +95,7 @@ function createDoc() {
       router.push({
         name: 'CRMDocID',
         params: {
+          doctype: toSlug(docType.value),  // ✅ convert here
           docId: name
         }
       })
@@ -122,6 +123,12 @@ function openFullForm() {
   })
 }
 
+function toSlug(doctype) {
+  return doctype
+    .toLowerCase()
+    .replace(/\s+/g, '-')   // spaces → hyphens
+}
+  
 // Initialize empty doc
 onMounted(() => {
   doc.doc = {}
