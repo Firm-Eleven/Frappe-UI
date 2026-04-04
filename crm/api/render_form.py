@@ -100,10 +100,10 @@ def get_list_view_columns(doctype, limit=3):
 
 
 @frappe.whitelist()   
-def get_list_view_rows(doctype, limit=10):
+def get_list_view_rows(doctype):
     # Columns jo list view me visible hain
     fields = [f.fieldname for f in frappe.get_meta(doctype).fields if f.in_list_view] + ["modified"]
 
     # rows fetch karo
-    docs = frappe.get_list(doctype, fields=fields, limit=int(limit))
+    docs = frappe.get_list(doctype, fields=fields)
     return docs
