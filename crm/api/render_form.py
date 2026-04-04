@@ -64,3 +64,46 @@ def update_doc():
     frappe.db.commit()
 
     return doc.name
+
+@frappe.whitelist()
+def get_list_view_columns(doctype, limit=3):
+    meta = frappe.get_meta(doctype)
+
+    if not meta or not meta.fields:
+        
+        return []
+
+    # 🔹 In List View fields filter
+    fields = [f for f in meta.fields if f.in_list_view]
+
+    # 🔹 limit apply
+    fields = fields[:int(limit)]
+
+    # 🔹 columns format
+    columns = [
+        {
+            "key": f.fieldname,
+            "label": f.label,
+            "align": "left"
+        }
+        for f in fields
+    ]
+
+    # 🔹 modified add
+    columns.append({
+        "key": "modified",
+        "label": "Modified",
+        "align": "left"
+    })
+
+    return columns
+
+
+@frappe.whitelist()   
+def get_list_view_rows(doctype, limit=10):
+    # Columns jo list view me visible hain
+    fields = [f.fieldname for f in frappe.get_meta(doctype).fields if f.in_list_view] + ["modified"]
+
+    # rows fetch karo
+    docs = frappe.get_list(doctype, fields=fields, limit=int(limit))
+    return docs
