@@ -37,6 +37,7 @@
         </Button>
       </ListHeaderItem>
     </ListHeader>
+	<!--  
     <ListRows
   	:rows="rows"
  	v-slot="{ idx, column, item, row }"
@@ -68,8 +69,40 @@
           </div>
          </template>
         </ListRowItem>
-    </ListRows>
+    </ListRows> -->
 
+	<ListRows
+      :rows="rows"
+      v-slot="{ column, item, row }"
+      :doctype="props.doctype"
+    >
+      <ListRowItem
+        v-if="column.key !== 'modified'"
+        :item="item"
+        :align="column.align"
+      >
+        <template #default>
+          <div class="truncate text-base font-medium">
+            {{ row[column.key] }}  <!-- ✅ now works -->
+          </div>
+        </template>
+      </ListRowItem>
+
+      <ListRowItem
+        v-else
+        :item="item"
+        :align="column.align"
+      >
+        <template #default>
+          <div class="truncate text-base">
+            <Tooltip :text="row[column.key].label">
+              <div>{{ row[column.key]?.timeAgo || row[column.key] || '' }}</div>
+            </Tooltip>
+          </div>
+        </template>
+      </ListRowItem>
+    </ListRows>
+	  
     <ListSelectBanner>
       <template #actions="{ selections, unselectAll }">
         <Dropdown
@@ -90,7 +123,7 @@
     }"
     @loadMore="emit('loadMore')"
   />
-  <ListBulkActions ref="listBulkActionsRef" v-model="list" doctype="Sales Invoice" />
+  <ListBulkActions ref="listBulkActionsRef" v-model="list" doctype=doctype />
 </template>
 
 <script setup>
@@ -114,15 +147,17 @@ import {
 import { sessionStore } from '@/stores/session'
 import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
+const doctype = 'Sales Invoice'
 
+	
 const props = defineProps({
   rows: {
     type: Array,
     required: true,
   },
-  columns: {
-    type: Array,
-    required: true,
+  doctype: {
+    type: String,
+    default: doctype
   },
   options: {
     type: Object,
@@ -136,6 +171,53 @@ const props = defineProps({
   },
 })
 
+// Step 1: Columns
+const columns = ref([])
+const columnsResource = createResource({
+  url: 'crm.api.render_form.get_list_view_columns',
+  params: { doctype: props.doctype, limit: 3 },
+  auto: true,
+  onSuccess(data) {
+    columns.value = data || []
+    console.log("Columns:", columns.value)
+
+    // Step 2: Now fetch rows after columns are ready
+    fetchRows()
+  }
+})
+
+// Step 2: Rows
+const rows = ref([])
+
+function fetchRows() {
+  createResource({
+    url: 'crm.api.render_form.get_list_view_rows',
+    params: { doctype: props.doctype, limit: 0 },
+    auto: true,
+    onSuccess(data) {
+      const updatedRows = data.map(row => {
+        columns.value.forEach(col => {
+          // Fill missing fields
+          if (!(col.key in row)) {
+            if (col.key === "custom_total") row[col.key] = 0
+            if (col.key !== "modified") row[col.key] = ""
+          }
+        })
+
+        // Format modified column using your utility
+        if (row.modified) {
+          row.modified = timeAgo(row.modified) // <-- converts to "2 min ago"
+        }
+
+        return row
+      })
+
+      rows.value = updatedRows
+
+    }
+  })
+}
+	
 const emit = defineEmits([
   'loadMore',
   'updatePageCount',
@@ -156,7 +238,6 @@ const isLikeFilterApplied = computed(() => {
 })
 
 const { user } = sessionStore()
-const doctype = 'Sales Invoice'
 	
 function isLiked(item) {
   if (item) {
