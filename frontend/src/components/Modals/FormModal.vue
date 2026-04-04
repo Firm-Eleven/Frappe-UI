@@ -120,6 +120,16 @@ function toSlug(doctype) {
     .replace(/\s+/g, '-')   // spaces → hyphens
 }
 
+watch(
+  () => tabs.data,
+  (val) => {
+    if (val && val.length) {
+      resetDoc()
+    }
+  },
+  { immediate: true }
+)
+
 function resetDoc() {
   let newDoc = {}
 
