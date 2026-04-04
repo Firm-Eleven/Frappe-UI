@@ -149,6 +149,8 @@ import { sessionStore } from '@/stores/session'
 import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { formatDate, timeAgo, website, formatTime } from '@/utils'
+
+const route = useRoute()
 const doctype = 'Sales Invoice'
 
 const doctypeee = computed(() => {
@@ -232,8 +234,6 @@ const emit = defineEmits([
   'likeDoc',
   'selectionsChanged',
 ])
-
-const route = useRoute()
 
 const pageLengthCount = defineModel()
 const list = defineModel('list')
