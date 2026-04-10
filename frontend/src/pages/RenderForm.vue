@@ -63,7 +63,7 @@ const breadcrumbs = computed(() => {
   return [
     {
       label: doctype,
-      route: '/${route.params.doctype}/view'
+      route: `/${route.params.doctype}/view`
     },
     {
       label: 'New'
