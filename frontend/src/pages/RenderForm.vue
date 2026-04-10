@@ -51,18 +51,19 @@ function formatDoctype(slug) {
 //   return formatDoctype(slug) // "CRM Doc"
 // })
 
-const doctype = computed(() => {
+const ref_doctype = computed(() => {
   return route.params.doctype
     ? formatDoctype(route.params.doctype)
     : ''
 })
+const doctype = ref_doctype.value
 console.log("Renderform doctype: ", doctype)
 
 const breadcrumbs = computed(() => {
   return [
     {
       label: doctype,
-      route: '/route.params.doctype/view'
+      route: '/${route.params.doctype}/view'
     },
     {
       label: 'New'
