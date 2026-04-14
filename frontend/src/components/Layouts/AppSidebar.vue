@@ -210,7 +210,7 @@ const links = computed(() => {
   return (sidebarResource.data || []).map(item => ({
     label: item.document,
     to: item.document,
-    icon: item.icon or NoteIcon
+    icon: item.icon || NoteIcon
   }))
 })
   
