@@ -180,10 +180,12 @@ import {
   GettingStartedBanner,
   useOnboarding,
   showHelpModal,
-  createResource,
   minimize,
   IntermediateStepModal,
 } from 'frappe-ui/frappe'
+import {
+  createResource,
+} from 'frappe-ui'
 import { capture } from '@/telemetry'
 import router from '@/router'
 import { useStorage } from '@vueuse/core'
