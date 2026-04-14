@@ -210,7 +210,7 @@ const linkss = computed(() => {
   return (sidebarResource.data || []).map(item => ({
     label: item.document,
     to: item.document,
-    icon: resolveIcon(item.icon)
+    icon: item.icon
   }))
 })
 console.log("Sidebar Date : ", linkss)  
