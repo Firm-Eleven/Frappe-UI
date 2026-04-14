@@ -180,6 +180,7 @@ import {
   GettingStartedBanner,
   useOnboarding,
   showHelpModal,
+  createResource,
   minimize,
   IntermediateStepModal,
 } from 'frappe-ui/frappe'
