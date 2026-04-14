@@ -196,6 +196,22 @@ const isSidebarCollapsed = useStorage('isSidebarCollapsed', false)
 const isFCSite = ref(window.is_fc_site)
 const isDemoSite = ref(window.is_demo_site)
 
+// Sidebar dynamic Items
+const sidebarResource = createResource({
+  url: 'crm.api.portal_sidebar.get_sidebar_items',
+  params: {},
+  auto: true
+})
+
+const linkss = computed(() => {
+  return (sidebarResource.data || []).map(item => ({
+    label: item.document,
+    to: item.document,
+    icon: resolveIcon(item.icon)
+  }))
+})
+console.log("Sidebar Date : ", linkss)  
+  
 const links = [
   {
     label: 'Leads',
