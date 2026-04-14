@@ -206,37 +206,36 @@ const sidebarResource = createResource({
   auto: true
 })
 
-const linkss = computed(() => {
+const links = computed(() => {
   return (sidebarResource.data || []).map(item => ({
     label: item.document,
     to: item.document,
-    icon: item.icon
+    icon: item.icon or NoteIcon
   }))
 })
-console.log("Sidebar Date : ", linkss)  
   
-const links = [
-  {
-    label: 'Leads',
-    icon: LeadsIcon,
-    to: 'Leads',
-  },
-  {
-    label: 'Deals',
-    icon: DealsIcon,
-    to: 'Deals',
-  },
-  {
-    label: 'CRM Doc',
-    icon: DealsIcon,
-    to: 'CRM Doc',
-  },
-  {
-    label: 'Sales Invoice',
-    icon: NoteIcon,
-    to: 'Sales Invoice',
-  }
-]
+// const links = [
+//   {
+//     label: 'Leads',
+//     icon: LeadsIcon,
+//     to: 'Leads',
+//   },
+//   {
+//     label: 'Deals',
+//     icon: DealsIcon,
+//     to: 'Deals',
+//   },
+//   {
+//     label: 'CRM Doc',
+//     icon: DealsIcon,
+//     to: 'CRM Doc',
+//   },
+//   {
+//     label: 'Sales Invoice',
+//     icon: NoteIcon,
+//     to: 'Sales Invoice',
+//   }
+// ]
 
 const allViews = computed(() => {
   let _views = [
