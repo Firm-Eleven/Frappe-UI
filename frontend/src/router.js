@@ -54,6 +54,12 @@ const routes = [
     path: '/sales-invoice/view/:viewType?',
     name: 'Sales Invoice',
     component: () => import('@/pages/SalesInvoice.vue'),
+  },
+  {
+    alias: '/purchase-invoice',
+    path: '/purchase-invoice/view/:viewType?',
+    name: 'Purchase Invoice',
+    component: () => import('@/pages/SalesInvoice.vue'),
   },	
   {
     alias: '/notes',
