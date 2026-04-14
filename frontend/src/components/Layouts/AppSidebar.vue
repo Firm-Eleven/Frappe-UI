@@ -219,6 +219,11 @@ const links = [
     label: 'Sales Invoice',
     icon: NoteIcon,
     to: 'Sales Invoice',
+  },
+  {
+    label: 'Purchase Invoice',
+    icon: NoteIcon,
+    to: 'Purchase Invoice',
   }
 ]
 
