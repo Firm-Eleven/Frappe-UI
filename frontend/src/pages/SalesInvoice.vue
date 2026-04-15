@@ -2,7 +2,7 @@
   <!-- Header -->
   <LayoutHeader>
     <template #left-header>
-      <ViewBreadcrumbs v-model="viewControls" routeName="Sales Invoice" />
+      <ViewBreadcrumbs v-model="viewControls" :routeName="doctype" />
     </template>
 
     <template #right-header>
@@ -79,23 +79,12 @@ const triggerResize = ref(1)
 const updatedPageCount = ref(20)
 const viewControls = ref(null)
 
-const doctype = computed(() => {
-  const parts = route.path.split('/')
-  const path_doctype = parts[2]
-  return formatDoctype(path_doctype)
-})
-console.log("dynamic doc : ",doctype)
+const path_doctype =  getDoctypeFromPath()
+const doctype = formatDoctype(path_doctype)
   
 // Navigate to form
 function goToForm() {
-  const parts = route.path.split('/')
-  const path_doctype = parts[2]
-  console.log("path_doctype doc : ",path_doctype)
-
-  router.push({
-    name: 'RenderForm',
-    params: { doctype: path_doctype }
-  })
+  router.push({ name: 'RenderForm', params: { doctype: path_doctype } })
 }
 
 const rows = computed(() => {
