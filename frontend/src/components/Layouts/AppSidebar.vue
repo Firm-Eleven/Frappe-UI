@@ -208,14 +208,14 @@ const sidebarResource = createResource({
   auto: true
 })
 
-// const links = computed(() => {
-//   return (sidebarResource.data || []).map(item => ({
-//     label: item.document,
-//     to: item.document,
-//     icon: item.icon || NoteIcon
-//   }))
-// })
-
+const dynamic_links = computed(() => {
+  return (sidebarResource.data || []).map(item => ({
+    label: item.document,
+    to: item.document,
+    icon: item.icon || NoteIcon
+  }))
+})
+console.log("Dynamic Links : ",dynamic_links)
 // const links = [
 //   {
 //     label: 'Sales Invoice',
