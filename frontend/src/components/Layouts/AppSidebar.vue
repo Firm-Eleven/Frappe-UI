@@ -71,6 +71,7 @@
         </Section>
       </div>
     </div>
+    <!--
     <div class="m-2 flex flex-col gap-1">
       <div class="flex flex-col gap-2 mb-1">
         <SignupBanner
@@ -87,7 +88,7 @@
           v-if="!isOnboardingStepsCompleted"
           :isSidebarCollapsed="isSidebarCollapsed"
         />
-      </div>
+      </div> -->
       <SidebarLink
         v-if="isOnboardingStepsCompleted"
         :label="__('Help')"
@@ -121,6 +122,7 @@
     </div>
     <Notifications />
     <Settings />
+    <!--
     <HelpModal
       v-if="showHelpModal"
       v-model="showHelpModal"
@@ -131,7 +133,7 @@
       :afterReset="(step) => capture('onboarding_step_reset_' + step)"
       :afterResetAll="() => capture('onboarding_steps_reset')"
       docsLink="https://docs.frappe.io/crm"
-    />
+    /> -->
     <IntermediateStepModal
       v-model="showIntermediateModal"
       :currentStep="currentStep"
@@ -214,31 +216,31 @@ const sidebarResource = createResource({
 //   }))
 // })
 
-const links = [
-  {
-    label: 'Sales Invoice',
-    icon: NoteIcon,
-    to: '/sales-invoice/view',
-  },
-  {
-    label: 'Purchase Invoice',
-    icon: NoteIcon,
-    to: '/purchase-invoice/view',
-  }
-]  
-  
 // const links = [
 //   {
 //     label: 'Sales Invoice',
 //     icon: NoteIcon,
-//     to: 'Sales Invoice',
+//     to: '/sales-invoice/view',
 //   },
 //   {
 //     label: 'Purchase Invoice',
 //     icon: NoteIcon,
-//     to: 'Purchase Invoice',
+//     to: '/purchase-invoice/view',
 //   }
-// ]
+// ]  
+  
+const links = [
+  {
+    label: 'Sales Invoice',
+    icon: NoteIcon,
+    to: 'Sales Invoice',
+  },
+  {
+    label: 'Purchase Invoice',
+    icon: NoteIcon,
+    to: 'Purchase Invoice',
+  }
+]
 
 const allViews = computed(() => {
   let _views = [
