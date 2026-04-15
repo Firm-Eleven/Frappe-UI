@@ -151,21 +151,13 @@ import { useRoute } from 'vue-router'
 import { formatDate, timeAgo, website, formatTime } from '@/utils'
 
 const route = useRoute()
-const doctype = 'Sales Invoice'
 
-const doctypeee = computed(() => {
-  if (!route.params.doctype) return ''
-
-  return route.params.doctype
-    .replace(/-/g, ' ')        // sales-invoice → sales invoice
-    .replace(/\b\w/g, c => c.toUpperCase()) // Sales Invoice
-})
-console.log("doctypeeee : ", doctypeee.value)
 const props = defineProps({
   rows: {
     type: Array,
     required: true,
   },
+  doctype:String,
   options: {
     type: Object,
     default: () => ({
@@ -178,6 +170,7 @@ const props = defineProps({
   },
 })
 
+const doctype = props.doctype
 // Step 1: Columns
 const columns = ref([])
 const columnsResource = createResource({
