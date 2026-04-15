@@ -248,7 +248,7 @@ const allViews = computed(() => {
       name: 'All Views',
       hideLabel: true,
       opened: true,
-      views: links,
+      views: links.value,
     },
   ]
   if (getPublicViews().length) {
