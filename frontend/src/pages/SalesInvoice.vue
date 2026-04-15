@@ -21,7 +21,7 @@
     v-model:loadMore="loadMore"
     v-model:resizeColumn="triggerResize"
     v-model:updatedPageCount="updatedPageCount"
-    :doctype=doctype
+    :doctype="doctype"
     :options="{
       allowedViews: ['list']
     }"
@@ -81,7 +81,6 @@ const viewControls = ref(null)
 
 const path_doctype =  getDoctypeFromPath()
 const doctype = formatDoctype(path_doctype)
-console.log("SINV Doc : ",doctype)
   
 // Navigate to form
 function goToForm() {
