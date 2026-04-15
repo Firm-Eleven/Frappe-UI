@@ -215,19 +215,6 @@ const links = computed(() => {
     icon: NoteIcon
   }))
 })
-console.log("Dynamic Links : ",links)
-// const links = [
-//   {
-//     label: 'Sales Invoice',
-//     icon: NoteIcon,
-//     to: '/sales-invoice/view',
-//   },
-//   {
-//     label: 'Purchase Invoice',
-//     icon: NoteIcon,
-//     to: '/purchase-invoice/view',
-//   }
-// ]  
   
 // const links = [
 //   {
