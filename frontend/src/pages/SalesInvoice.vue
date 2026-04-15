@@ -33,7 +33,8 @@
     v-model="docs.data.page_length_count"
     v-model:list="docs"
     :rows="rows"
-    :columns="docs.data.columns"
+    :columns="docs.data.columns",
+    :doctype="doctype",
     :options="{
       resizeColumn: true,
       rowCount: docs.data.row_count,
@@ -78,12 +79,13 @@ const triggerResize = ref(1)
 const updatedPageCount = ref(20)
 const viewControls = ref(null)
 
-const docty =  getDoctypeFromPath()
-console.log("Sales INV Vue : ",docty)
+const path_doctype =  getDoctypeFromPath()
+const doctype = formatDoctype(path_doctype)
+console.log("SINV Doc : ",doctype)
   
 // Navigate to form
 function goToForm() {
-  router.push({ name: 'RenderForm', params: { doctype: 'sales-invoice' } })
+  router.push({ name: 'RenderForm', params: { doctype: path_doctype } })
 }
 
 const rows = computed(() => {
@@ -111,6 +113,11 @@ const rows = computed(() => {
 })
 function getDoctypeFromPath() {
   const parts = route.path.split('/')
-  return parts[2] // ['', 'crm', 'purchase-invoice', 'view']
+  return parts[1] // ['', 'crm', 'purchase-invoice', 'view']
+}
+function formatDoctype(path_doctype) {
+  return path_doctype
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase())
 }
 </script>
