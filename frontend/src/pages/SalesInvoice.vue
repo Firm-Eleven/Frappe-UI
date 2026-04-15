@@ -79,12 +79,21 @@ const triggerResize = ref(1)
 const updatedPageCount = ref(20)
 const viewControls = ref(null)
 
-const path_doctype =  getDoctypeFromPath()
-const doctype = formatDoctype(path_doctype)
+const doctype = computed(() => {
+  const parts = route.path.split('/')
+  const path_doctype = parts[2]
+  return formatDoctype(path_doctype)
+})
   
 // Navigate to form
 function goToForm() {
-  router.push({ name: 'RenderForm', params: { doctype: path_doctype } })
+  const parts = route.path.split('/')
+  const path_doctype = parts[2]
+
+  router.push({
+    name: 'RenderForm',
+    params: { doctype: path_doctype }
+  })
 }
 
 const rows = computed(() => {
