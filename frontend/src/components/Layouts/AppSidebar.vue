@@ -71,8 +71,8 @@
         </Section>
       </div>
     </div>
-    <!--
     <div class="m-2 flex flex-col gap-1">
+      <!--
       <div class="flex flex-col gap-2 mb-1">
         <SignupBanner
           v-if="isDemoSite"
