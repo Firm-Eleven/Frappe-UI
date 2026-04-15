@@ -50,17 +50,22 @@ const routes = [
     props: true,
   },
   {
-    alias: '/sales-invoice',
-    path: '/sales-invoice/view/:viewType?',
-    name: 'Sales Invoice',
+    path: '/:doctype/view/:viewType?',
+    name: 'doctype-view',
     component: () => import('@/pages/SalesInvoice.vue'),
   },
-  {
-    alias: '/purchase-invoice',
-    path: '/purchase-invoice/view/:viewType?',
-    name: 'Purchase Invoice',
-    component: () => import('@/pages/SalesInvoice.vue'),
-  },	
+  // {
+  //   alias: '/sales-invoice',
+  //   path: '/sales-invoice/view/:viewType?',
+  //   name: 'Sales Invoice',
+  //   component: () => import('@/pages/SalesInvoice.vue'),
+  // },
+  // {
+  //   alias: '/purchase-invoice',
+  //   path: '/purchase-invoice/view/:viewType?',
+  //   name: 'Purchase Invoice',
+  //   component: () => import('@/pages/SalesInvoice.vue'),
+  // },	
   {
     alias: '/notes',
     path: '/notes/view/:viewType?',
