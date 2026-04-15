@@ -318,9 +318,12 @@ def get_data(
 	is_default = True
 	data = []
 	_list = get_controller(doctype)
-	default_rows = []
-	if hasattr(_list, "default_list_data"):
-		default_rows = _list.default_list_data().get("rows")
+	# default_rows = []
+	# if hasattr(_list, "default_list_data"):
+	# 	default_rows = _list.default_list_data().get("rows")
+	default_data = get_default_list_data(doctype)
+	default_rows = default_data.get("rows", [])
+	default_columns = default_data.get("columns", [])
 
 	meta = frappe.get_meta(doctype)
 
@@ -561,6 +564,55 @@ def get_data(
 		"view_type": view_type,
 	}
 
+## Custom Added
+def get_default_list_data(doctype):
+    controller = get_controller(doctype)
+
+    # 1. If custom method exists
+    if hasattr(controller, "default_list_data"):
+        return controller.default_list_data()
+
+    # 2. Fallback → build dynamically
+    return build_dynamic_list_data(doctype)
+
+def build_dynamic_list_data(doctype):
+    meta = frappe.get_meta(doctype)
+
+    fields = []
+
+    # collect in_list_view fields
+    for f in meta.fields:
+        if f.in_list_view:
+            fields.append(f)
+
+    # fallback if none
+    if not fields:
+        fields = [{
+            "fieldname": "name",
+            "label": "ID",
+            "fieldtype": "Data"
+        }]
+
+    # limit to 3 fields max
+    fields = fields[:3]
+
+    columns = []
+    rows = []
+
+    for f in fields:
+        columns.append({
+            "label": f.label,
+            "type": f.fieldtype,
+            "key": f.fieldname,
+            "width": "10rem"
+        })
+        rows.append(f.fieldname)
+
+    return {
+        "columns": columns,
+        "rows": rows
+    }
+## Custom End
 
 def parse_list_data(data, doctype):
 	_list = get_controller(doctype)
