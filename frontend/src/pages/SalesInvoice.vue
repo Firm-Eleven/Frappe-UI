@@ -77,6 +77,9 @@ const triggerResize = ref(1)
 const updatedPageCount = ref(20)
 const viewControls = ref(null)
 
+const docty =  getDoctypeFromPath()
+console.log("Sales INV Vue : ",docty)
+  
 // Navigate to form
 function goToForm() {
   router.push({ name: 'RenderForm', params: { doctype: 'sales-invoice' } })
@@ -105,4 +108,8 @@ const rows = computed(() => {
     }
   })
 })
+function getDoctypeFromPath() {
+  const parts = route.path.split('/')
+  return parts[2] // ['', 'crm', 'purchase-invoice', 'view']
+}
 </script>
