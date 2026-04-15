@@ -2,7 +2,7 @@
   <!-- Header -->
   <LayoutHeader>
     <template #left-header>
-      <ViewBreadcrumbs v-model="viewControls" routeName="Sales Invoice" />
+      <ViewBreadcrumbs v-model="viewControls" :routeName="doctype" />
     </template>
 
     <template #right-header>
