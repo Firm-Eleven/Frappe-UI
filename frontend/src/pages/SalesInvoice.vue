@@ -62,13 +62,14 @@ import ViewBreadcrumbs from '@/components/ViewBreadcrumbs.vue'
 import LayoutHeader from '@/components/LayoutHeader.vue'
 import SalesInvoiceListView from '@/components/ListViews/SalesInvoiceListView.vue'
 import ViewControls from '@/components/ViewControls.vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ref, computed } from 'vue'
 import { Button, FeatherIcon } from 'frappe-ui'
 import { formatDate, timeAgo, website, formatTime } from '@/utils'
 
 // Router
 const router = useRouter()
+const route = useRoute()
 
 // State
 const docs = ref({})
