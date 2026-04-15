@@ -213,19 +213,32 @@ const sidebarResource = createResource({
 //     icon: item.icon || NoteIcon
 //   }))
 // })
-  
+
 const links = [
   {
     label: 'Sales Invoice',
     icon: NoteIcon,
-    to: 'Sales Invoice',
+    to: '/sales-invoice/view',
   },
   {
     label: 'Purchase Invoice',
     icon: NoteIcon,
-    to: 'Purchase Invoice',
+    to: '/purchase-invoice/view',
   }
-]
+]  
+  
+// const links = [
+//   {
+//     label: 'Sales Invoice',
+//     icon: NoteIcon,
+//     to: 'Sales Invoice',
+//   },
+//   {
+//     label: 'Purchase Invoice',
+//     icon: NoteIcon,
+//     to: 'Purchase Invoice',
+//   }
+// ]
 
 const allViews = computed(() => {
   let _views = [
