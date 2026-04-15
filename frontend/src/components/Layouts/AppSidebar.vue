@@ -208,14 +208,14 @@ const sidebarResource = createResource({
   auto: true
 })
 
-const dynamic_links = computed(() => {
+const links = computed(() => {
   return (sidebarResource.data || []).map(item => ({
     label: item.document,
     to: item.document,
-    icon: item.icon || NoteIcon
+    icon: NoteIcon
   }))
 })
-console.log("Dynamic Links : ",dynamic_links)
+console.log("Dynamic Links : ",links)
 // const links = [
 //   {
 //     label: 'Sales Invoice',
@@ -229,18 +229,18 @@ console.log("Dynamic Links : ",dynamic_links)
 //   }
 // ]  
   
-const links = [
-  {
-    label: 'Sales Invoice',
-    icon: NoteIcon,
-    to: 'Sales Invoice',
-  },
-  {
-    label: 'Purchase Invoice',
-    icon: NoteIcon,
-    to: 'Purchase Invoice',
-  }
-]
+// const links = [
+//   {
+//     label: 'Sales Invoice',
+//     icon: NoteIcon,
+//     to: 'Sales Invoice',
+//   },
+//   {
+//     label: 'Purchase Invoice',
+//     icon: NoteIcon,
+//     to: 'Purchase Invoice',
+//   }
+// ]
 
 const allViews = computed(() => {
   let _views = [
