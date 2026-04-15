@@ -84,11 +84,13 @@ const doctype = computed(() => {
   const path_doctype = parts[2]
   return formatDoctype(path_doctype)
 })
+console.log("dynamic doc : ",doctype)
   
 // Navigate to form
 function goToForm() {
   const parts = route.path.split('/')
   const path_doctype = parts[2]
+  console.log("path_doctype doc : ",path_doctype)
 
   router.push({
     name: 'RenderForm',
