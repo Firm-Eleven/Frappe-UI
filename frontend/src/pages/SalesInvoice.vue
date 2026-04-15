@@ -21,7 +21,7 @@
     v-model:loadMore="loadMore"
     v-model:resizeColumn="triggerResize"
     v-model:updatedPageCount="updatedPageCount"
-    doctype="Sales Invoice"
+    :doctype=doctype
     :options="{
       allowedViews: ['list']
     }"
@@ -33,8 +33,8 @@
     v-model="docs.data.page_length_count"
     v-model:list="docs"
     :rows="rows"
-    :columns="docs.data.columns",
-    :doctype="doctype",
+    :columns="docs.data.columns"
+    :doctype="doctype"
     :options="{
       resizeColumn: true,
       rowCount: docs.data.row_count,
