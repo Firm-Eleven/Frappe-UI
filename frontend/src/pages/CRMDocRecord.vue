@@ -89,10 +89,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  doctype: {
+    type: String,
+    required: true,
+  },
 })
-const doctypee = computed(() => route.params.doctype)
+
 console.log("props docid : ",props.docId)
-console.log("props doctype : ",doctypee)
+console.log("props doctype : ",props.doctype)
 
 const errorTitle = ref('')
 const errorMessage = ref('')
