@@ -73,17 +73,6 @@ import { ref, computed, h, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useActiveTabManager } from '@/composables/useActiveTabManager'
 
-const doctype = 'Sales Invoice'  
-const { brand } = getSettings()
-const { $dialog, $socket, makeCall } = globalStore()
-const { doctypeMeta } = getMeta(doctype)
-
-const { updateOnboardingStep, isOnboardingStepsCompleted } =
-  useOnboarding('frappecrm')
-
-const route = useRoute()
-const router = useRouter()
-
 const props = defineProps({
   docId: {
     type: String,
@@ -94,9 +83,20 @@ const props = defineProps({
     required: true,
   },
 })
+  
+const doctype = formatDoctype(path_doctype)  
+const { brand } = getSettings()
+const { $dialog, $socket, makeCall } = globalStore()
+const { doctypeMeta } = getMeta(doctype)
 
-console.log("props docid : ",props.docId)
-console.log("props doctype : ",props.doctype)
+const { updateOnboardingStep, isOnboardingStepsCompleted } =
+  useOnboarding('frappecrm')
+
+const route = useRoute()
+const router = useRouter()
+
+console.log("Record Vue docid : ",props.docId)
+console.log(" Record Vue doctype : ",doctype)
 
 const errorTitle = ref('')
 const errorMessage = ref('')
@@ -255,6 +255,12 @@ async function deleteDoc(name) {
     name,
   })
   router.push({ name: doctype })
+}
+
+function formatDoctype(path_doctype) {
+  return path_doctype
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase())
 }
 
 </script>
