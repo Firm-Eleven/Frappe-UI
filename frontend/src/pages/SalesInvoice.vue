@@ -123,13 +123,9 @@ watch(
   () => route.path,
   () => {
     const newDoctype = formatDoctype(getDoctypeFromPath())
-    
-    // update doctype
     doctype.value = newDoctype
 
-    // reset data / reload API
-    docs.value = {}
-    loadMore.value = 1
+    loadMore.value++
   }
 )
 </script>
