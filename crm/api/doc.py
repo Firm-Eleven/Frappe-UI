@@ -357,7 +357,7 @@ def get_data(
 			is_default = False
 		elif not custom_view or (is_default and hasattr(_list, "default_list_data")):
 			rows = default_rows
-			columns = _list.default_list_data().get("columns")
+			columns = default_columns
 
 		# check if rows has all keys from columns if not add them
 		for column in columns:
