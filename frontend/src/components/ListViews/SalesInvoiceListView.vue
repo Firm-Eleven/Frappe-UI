@@ -6,7 +6,7 @@
     :options="{
       getRowRoute: (row) => ({
         name: 'CRMDocID',
-        params: { doctype:doctype,docId: row.name },
+        params: { doctype:path_doctype, docId: row.name },
         query: { view: route.query.view, viewType: route.params.viewType },
       }),
       selectable: options.selectable,
@@ -171,6 +171,7 @@ const props = defineProps({
 })
 
 const doctype = props.doctype
+const path_doctype = toSlug(doctype)
 // Step 1: Columns
 const columns = ref([])
 const columnsResource = createResource({
@@ -242,6 +243,12 @@ function isLiked(item) {
     let likedByMe = JSON.parse(item)
     return likedByMe.includes(user)
   }
+}
+
+function toSlug(doctype) {
+  return doctype
+    .toLowerCase()
+    .replace(/\s+/g, '-')
 }
 
 watch(pageLengthCount, (val, old_value) => {
