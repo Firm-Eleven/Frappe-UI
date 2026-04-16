@@ -2,7 +2,7 @@
   <!-- Header -->
   <LayoutHeader>
     <template #left-header>
-      <ViewBreadcrumbs v-model="viewControls" :routeName="doctype" />
+      <ViewBreadcrumbs v-model="viewControls" :routeName="doctype.value" />
     </template>
 
     <template #right-header>
@@ -64,7 +64,7 @@ import LayoutHeader from '@/components/LayoutHeader.vue'
 import SalesInvoiceListView from '@/components/ListViews/SalesInvoiceListView.vue'
 import ViewControls from '@/components/ViewControls.vue'
 import { useRouter, useRoute } from 'vue-router'
-import { ref, computed } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { Button, FeatherIcon } from 'frappe-ui'
 import { formatDate, timeAgo, website, formatTime } from '@/utils'
 
@@ -80,7 +80,7 @@ const updatedPageCount = ref(20)
 const viewControls = ref(null)
 
 const path_doctype =  getDoctypeFromPath()
-const doctype = formatDoctype(path_doctype)
+const doctype = ref(formatDoctype(path_doctype))
   
 // Navigate to form
 function goToForm() {
@@ -119,4 +119,17 @@ function formatDoctype(path_doctype) {
     .replace(/-/g, ' ')
     .replace(/\b\w/g, c => c.toUpperCase())
 }
+watch(
+  () => route.path,
+  () => {
+    const newDoctype = formatDoctype(getDoctypeFromPath())
+    
+    // update doctype
+    doctype.value = newDoctype
+
+    // reset data / reload API
+    docs.value = {}
+    loadMore.value = 1
+  }
+)
 </script>
