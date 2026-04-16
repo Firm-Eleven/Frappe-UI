@@ -125,6 +125,7 @@ watch(
     const newDoctype = formatDoctype(getDoctypeFromPath())
     doctype.value = newDoctype
 
+    docs.value = {}
     loadMore.value++
   }
 )
