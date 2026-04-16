@@ -84,7 +84,7 @@ const props = defineProps({
   },
 })
   
-const doctype = formatDoctype(path_doctype)  
+const doctype = formatDoctype(props.doctype)  
 const { brand } = getSettings()
 const { $dialog, $socket, makeCall } = globalStore()
 const { doctypeMeta } = getMeta(doctype)
