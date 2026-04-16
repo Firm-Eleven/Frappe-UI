@@ -90,11 +90,13 @@ const props = defineProps({
     required: true,
   },
 })
+const doctypee = computed(() => route.params.doctype)
+console.log("props docid : ",props.docId)
+console.log("props doctype : ",doctypee)
 
 const errorTitle = ref('')
 const errorMessage = ref('')
 
-console.log("props docid : ",props.docId)
 const crmDoc = createResource({
   url: 'crm.api.render_form.get_doc',  // make sure path matches your file
   params: {
