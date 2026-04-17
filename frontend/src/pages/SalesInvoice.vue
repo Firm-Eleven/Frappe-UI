@@ -16,6 +16,7 @@
 
   <!-- Controls -->
   <ViewControls
+    :key = "doctype"
     ref="viewControls"
     v-model="docs"
     v-model:loadMore="loadMore"
