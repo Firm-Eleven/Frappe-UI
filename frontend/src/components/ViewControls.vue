@@ -1360,15 +1360,8 @@ watch(
   { deep: true },
 )
 
-// watch([() => route, () => route.params.viewType], (value, old_value) => {
-//   if (value[0] === old_value[0] && value[1] === value[0]) return
-//   reload()
-// })
-watch(
-  () => route.params.viewType,
-  (newVal, oldVal) => {
-    if (newVal === oldVal) return
-    reload()
-  }
-)
+watch([() => route, () => route.params.viewType], (value, old_value) => {
+  if (value[0] === old_value[0] && value[1] === value[0]) return
+  reload()
+})
 </script>
